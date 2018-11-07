@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Alumnos
+      </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-table [dataSource]="alumnos">
+
+      <ng-container matColumnDef="Nombre">
+        <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.Nombre}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Legajo">
+        <mat-header-cell *matHeaderCellDef> Legajo </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.Legajo}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </mat-card-content>
+
+</mat-card>
