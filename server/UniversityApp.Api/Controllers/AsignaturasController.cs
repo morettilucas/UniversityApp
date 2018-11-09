@@ -3,34 +3,29 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UniversityApp.Api.Models;
-using UniversityApp.Model.Repositories;
+using UniversityApp.Model.Services;
 
 namespace UniversityApp.Api.Controllers
 {
     public class AsignaturasController : BaseController
     {
-        public IAsignaturasRepository AsignaturasRepository { get; set; }
+        public IAsignaturasService AsignaturasService { get; set; }
 
-        public AsignaturasController(IAsignaturasRepository asignaturasRepository)
+        public AsignaturasController(IAsignaturasService asignaturasService)
         {
-            AsignaturasRepository = asignaturasRepository ?? throw new ArgumentNullException(nameof(asignaturasRepository));
+            AsignaturasService = asignaturasService ?? throw new ArgumentNullException(nameof(asignaturasService));
         }
 
         // GET api/asignaturas
         public Task<IEnumerable<AsignaturaDTO>> Get()
         {
-            return Task.Factory.StartNew(() => Mapper.Map<IEnumerable<AsignaturaDTO>>(AsignaturasRepository.ObtenerAsignaturas()));
+            return Task.Factory.StartNew(() => Mapper.Map<IEnumerable<AsignaturaDTO>>(AsignaturasService.ObtenerAsignaturas()));
         }
 
         // GET api/asignaturas/5
         public Task<AsignaturaDTO> Get(int id)
         {
-            return Task.Factory.StartNew(() =>
-            {
-                var asig = AsignaturasRepository.ObtenerAsignatura(id);
-                var map = Mapper.Map<AsignaturaDTO>(asig);
-                return map;
-            });
+            return Task.Factory.StartNew(() => Mapper.Map<AsignaturaDTO>(AsignaturasService.ObtenerAsignaturaPorId(id)));
         }
     }
 }

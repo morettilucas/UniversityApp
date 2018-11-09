@@ -4,6 +4,7 @@ namespace UniversityApp.DB
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("Inscripcions")]
     public class Inscripcion
     {
         [Key]
@@ -20,8 +21,7 @@ namespace UniversityApp.DB
         public DateTime FechaInscripcion { get; set; }
 
         [Required]
-        [StringLength(50)]
-        public string Estado { get; set; }
+        public EstadoInscripcion Estado { get; set; }
 
         public virtual Alumno Alumno { get; set; }
 

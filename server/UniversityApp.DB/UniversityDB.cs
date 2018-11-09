@@ -1,3 +1,5 @@
+using System;
+
 namespace UniversityApp.DB
 {
     using System.Data.Entity;
@@ -32,10 +34,13 @@ namespace UniversityApp.DB
                 .HasForeignKey(c => c.IDAsignatura)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Inscripcion>()
+                .HasKey(i => new {i.IDCurso, i.IDAlumno})
+                .Property(e => e.Estado)
+                .HasColumnType("int");
+
             modelBuilder.Entity<Asignatura>()
                 .HasMany(c => c.Cursos);
-
-
         }
     }
 }

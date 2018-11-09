@@ -41,10 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FiltroInscripciones.cs" />
+    <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IInscripcionesRepository.cs" />
     <Compile Include="Repositories\IAsignaturasRepository.cs" />
     <Compile Include="Repositories\IAlumnosRepository.cs" />
-    <Compile Include="Services\IEstadoAcademicoRepository.cs" />
+    <Compile Include="Services\IInscripcionesService.cs" />
+    <Compile Include="Services\IAlumnosService.cs" />
+    <Compile Include="Services\IAsignaturasService.cs" />
+    <Compile Include="Services\IEstadoAcademicoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversityApp.DB\UniversityApp.DB.csproj">

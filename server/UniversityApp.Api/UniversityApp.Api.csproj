@@ -122,6 +122,7 @@
     <Compile Include="App_Start\UnityWebApiActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\AutoMapperConfig.cs" />
+    <Compile Include="Controllers\InscripcionesController.cs" />
     <Compile Include="Controllers\EstadoAcademicoController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AsignaturasController.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\InscripcionDTO.cs" />
     <Compile Include="Models\AsignaturaDTO.cs" />
     <Compile Include="Models\CursoDTO.cs" />
     <Compile Include="Models\AlumnoDTO.cs" />
@@ -158,6 +160,10 @@
     <ProjectReference Include="..\UniversityApp.Repositories\UniversityApp.Repositories.csproj">
       <Project>{77209092-8952-4245-AD57-90142AA0E40C}</Project>
       <Name>UniversityApp.Repositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityApp.Services\UniversityApp.Services.csproj">
+      <Project>{DBC3AAE6-BEFA-446B-8E54-3EB873A518C1}</Project>
+      <Name>UniversityApp.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

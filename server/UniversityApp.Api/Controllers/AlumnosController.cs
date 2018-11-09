@@ -5,49 +5,49 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using UniversityApp.Api.Models;
 using UniversityApp.DB;
-using UniversityApp.Model.Repositories;
+using UniversityApp.Model.Services;
 
 namespace UniversityApp.Api.Controllers
 {
     public class AlumnosController : BaseController
     {
-        public IAlumnosRepository AlumnosRepository { get; set; }
+        public IAlumnosService AlumnosService { get; set; }
 
-        public AlumnosController(IAlumnosRepository alumnosRepository)
+        public AlumnosController(IAlumnosService alumnosService)
         {
-            AlumnosRepository = alumnosRepository ?? throw new ArgumentNullException(nameof(alumnosRepository));
+            AlumnosService = alumnosService ?? throw new ArgumentNullException(nameof(alumnosService));
         }
 
         // GET api/alumnos
         public Task<IEnumerable<AlumnoDTO>> Get()
         {
-            return Task.Factory.StartNew(() => Mapper.Map<IEnumerable<AlumnoDTO>>(AlumnosRepository.ObtenerAlumnos()));
+            return Task.Factory.StartNew(() => Mapper.Map<IEnumerable<AlumnoDTO>>(AlumnosService.ObtenerAlumnos()));
         }
 
         // GET api/alumnos/5
         public Task<AlumnoDTO> Get(int id)
         {
-            return Task.Factory.StartNew(() => Mapper.Map<AlumnoDTO>(AlumnosRepository.ObtenerAlumno(id)));
+            return Task.Factory.StartNew(() => Mapper.Map<AlumnoDTO>(AlumnosService.ObtenerAlumno(id)));
         }
 
         // POST api/alumnos
         public Task<int> Post([FromBody]AlumnoDTO alumnoDto)
         {
             var alumno = Mapper.Map<Alumno>(alumnoDto);
-            return Task.Factory.StartNew(() => AlumnosRepository.CrearAlumno(alumno));
+            return Task.Factory.StartNew(() => AlumnosService.CrearAlumno(alumno));
         }
 
         // PUT api/alumnos/5
         public Task Put(int id, [FromBody]AlumnoDTO alumnoDto)
         {
             var alumno = Mapper.Map<Alumno>(alumnoDto);
-            return Task.Factory.StartNew(() =>  AlumnosRepository.ActualizarAlumno(alumno));
+            return Task.Factory.StartNew(() => AlumnosService.ActualizarAlumno(alumno));
         }
 
         // DELETE api/alumnos/5
         public Task Delete(int id)
         {
-            return Task.Factory.StartNew(() => AlumnosRepository.EliminarAlumno(id));
+            return Task.Factory.StartNew(() => AlumnosService.EliminarAlumno(id));
         }
     }
 }

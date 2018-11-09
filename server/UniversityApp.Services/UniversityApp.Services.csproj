@@ -41,8 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InscripcionesService.cs" />
+    <Compile Include="AsignaturasService.cs" />
+    <Compile Include="AlumnosService.cs" />
     <Compile Include="EstadoAcademicoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UniversityApp.DB\UniversityApp.DB.csproj">
+      <Project>{948E19C4-2E5F-4539-A5C4-36A77649CBB6}</Project>
+      <Name>UniversityApp.DB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityApp.Model\UniversityApp.Model.csproj">
+      <Project>{0A33BAC3-711D-47F8-ABC5-18C5671B0A24}</Project>
+      <Name>UniversityApp.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

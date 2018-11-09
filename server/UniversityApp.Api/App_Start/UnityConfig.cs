@@ -1,8 +1,13 @@
 using System;
-
+using System.Data.Entity;
 using Unity;
+using Unity.Lifetime;
+using UniversityApp.DB;
+using UniversityApp.Model;
 using UniversityApp.Model.Repositories;
+using UniversityApp.Model.Services;
 using UniversityApp.Repositories;
+using UniversityApp.Services;
 
 namespace UniversityApp.Api
 {
@@ -38,8 +43,17 @@ namespace UniversityApp.Api
         /// </remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
+            container.RegisterType<DbContext, UniversityDB>(new PerThreadLifetimeManager());
+
             container.RegisterType<IAlumnosRepository, AlumnosRepository>();
             container.RegisterType<IAsignaturasRepository, AsignaturasRepository>();
+            container.RegisterType<IInscripcionesRepository, InscripcionesRepository>();
+            container.RegisterType<IUnitOfWork, UnitOfWork>();
+
+            container.RegisterType<IAlumnosService, AlumnosService>();
+            container.RegisterType<IAsignaturasService, AsignaturasService>();
+            container.RegisterType<IEstadoAcademicoService, EstadoAcademicoService>();
+            container.RegisterType<IInscripcionesService, InscripcionesService>();
         }
     }
 }
