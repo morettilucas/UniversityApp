@@ -19,8 +19,11 @@ namespace UniversityApp.Repositories
 
         public IEnumerable<Inscripcion> ObtenerInscripcionesPorFiltro(FiltroInscripciones filtro)
         {
-            var query = Context.Inscripciones.Where(i => i.Alumno.IDAlumno == filtro.IdAlumno);
+            var query = Context.Inscripciones.AsQueryable();
 
+            if (filtro.IdAlumno != 0) query = query.Where(i => filtro.IdAlumno == i.IDAlumno);
+            if (filtro.IdCurso != 0) query = query.Where(i => filtro.IdCurso == i.IDCurso);
+            if (filtro.IdAsignatura != 0) query = query.Where(i => filtro.IdAsignatura == i.IDAsignatura);
             if (filtro.FechaDesde != null) query = query.Where(i => filtro.FechaDesde < i.FechaInscripcion);
             if (filtro.FechaHasta != null) query = query.Where(i => i.FechaInscripcion < filtro.FechaHasta);
 
@@ -36,12 +39,11 @@ namespace UniversityApp.Repositories
                 Alumno = alumno,
                 Curso = curso,
                 FechaInscripcion = DateTime.Now,
-                Estado = EstadoInscripcion.Inscripto,
+                Estado = (int) EstadoInscripcion.Inscripto,
                 IDCurso = alumno.IDAlumno,
-                IDAlumno = curso.IDCurso
+                IDAlumno = curso.IDCurso,
+                IDAsignatura = curso.IDAsignatura
             };
-            alumno.Inscripciones.Add(inscripcion);
-            curso.Inscripciones.Add(inscripcion);
             Context.Inscripciones.Add(inscripcion);
         }
     }

@@ -9,7 +9,7 @@ namespace UniversityApp.DB.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
             ContextKey = "UniversityApp.DB.UniversityDB";
         }
 

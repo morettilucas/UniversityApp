@@ -23,7 +23,9 @@ namespace UniversityApp.Repositories
 
         public Asignatura ObtenerAsignatura(int id)
         {
-            var asignatura = Context.Asignaturas.Include(m => m.Cursos).First(a => a.IDAsignatura == id);
+            Asignatura asignatura = null;
+            if (Context.Asignaturas.Any())
+                asignatura = Context.Asignaturas.Include(m => m.Cursos).FirstOrDefault(a => a.IDAsignatura == id);
             return asignatura ?? throw new Exception($"La asignatura {id} no existe.");
         }
     }

@@ -1,27 +1,31 @@
-namespace UniversityApp.DB
+ namespace UniversityApp.DB
 {
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("Inscripcions")]
+    [Table("Inscripciones")]
     public class Inscripcion
     {
         [Key]
-        [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IDAlumno { get; set; }
 
         [Key]
-        [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IDCurso { get; set; }
 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int IDAsignatura { get; set; }
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Column(TypeName = "datetime2")]
         public DateTime FechaInscripcion { get; set; }
 
         [Required]
-        public EstadoInscripcion Estado { get; set; }
+        public int Estado { get; set; }
 
         public virtual Alumno Alumno { get; set; }
 

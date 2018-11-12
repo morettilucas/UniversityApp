@@ -1,5 +1,4 @@
-﻿using System;
-using UniversityApp.DB;
+﻿using UniversityApp.DB;
 using UniversityApp.Model;
 using UniversityApp.Model.Repositories;
 
@@ -7,21 +6,22 @@ namespace UniversityApp.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private UniversityDB Context { get; }
+        private UniversityDB _context;
+
+        private UniversityDB Context
+        {
+            get { return _context = _context ?? new UniversityDB(); }
+        }
+
         public IAlumnosRepository AlumnosRepository { get; }
         public IAsignaturasRepository AsignaturasRepository { get; }
         public IInscripcionesRepository InscripcionesRepository { get; }
 
-        public UnitOfWork(
-            UniversityDB context,
-            IAlumnosRepository alumnosRepository,
-            IAsignaturasRepository asignaturasRepository,
-            IInscripcionesRepository inscripcionesRepository)
+        public UnitOfWork()
         {
-            Context = context ?? throw new ArgumentNullException(nameof(context));
-            AlumnosRepository = alumnosRepository ?? throw new ArgumentNullException(nameof(alumnosRepository));
-            AsignaturasRepository = asignaturasRepository ?? throw new ArgumentNullException(nameof(asignaturasRepository));
-            InscripcionesRepository = inscripcionesRepository ?? throw new ArgumentNullException(nameof(inscripcionesRepository));
+            AlumnosRepository = new AlumnosRepository(Context);
+            AsignaturasRepository = new AsignaturasRepository(Context);
+            InscripcionesRepository = new InscripcionesRepository(Context);
         }
 
         public void Dispose()

@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Web.Http;
 using UniversityApp.Api.Models;
-using UniversityApp.DB;
 using UniversityApp.Model;
 using UniversityApp.Model.Services;
 
@@ -20,13 +19,16 @@ namespace UniversityApp.Api.Controllers
         }
 
         // GET api/inscripciones?alumno=id&desde=fecha&hasta=fecha
-        public IHttpActionResult Get([FromUri] int alumno, [FromUri] DateTime? fechaDesde, [FromUri] DateTime? fechaHasta)
+        [HttpGet]
+        public IHttpActionResult Get([FromUri] int alumno = 0, int asignatura = 0, int curso = 0, DateTime? fechaDesde = null, DateTime? fechaHasta = null)
         {
             if (fechaDesde != null && fechaHasta != null && fechaDesde > fechaHasta) return BadRequest("El rango de fechas no es válido");
 
             var filtro = new FiltroInscripciones
             {
                 IdAlumno = alumno,
+                IdAsignatura = asignatura,
+                IdCurso = curso,
                 FechaDesde = fechaDesde,
                 FechaHasta = fechaHasta
             };
@@ -34,12 +36,12 @@ namespace UniversityApp.Api.Controllers
         }
 
         // GET api/inscripciones?alumno=id&desde=fecha&hasta=fecha
-        public IHttpActionResult Post([FromBody] AlumnoDTO alumnoDto, CursoDTO cursoDto)
+        public IHttpActionResult Post([FromBody] SolicitudInscripcionDTO solicitud)
         {
-            var alumno = Mapper.Map<Alumno>(alumnoDto);
-            var curso = Mapper.Map<Curso>(cursoDto);
-
-            InscripcionesService.InscribirAlumno(curso, alumno);
+            InscripcionesService.InscribirAlumno(
+                asignaturaId: solicitud.AsignaturaId, 
+                cursoId: solicitud.CursoId, 
+                alumnoId: solicitud.AlumnoId);
             return Ok();
         }
     }

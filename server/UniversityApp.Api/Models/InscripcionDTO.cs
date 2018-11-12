@@ -8,8 +8,8 @@ namespace UniversityApp.Api.Models
 
         public string Estado { get; set; }
 
-        public virtual AlumnoDTO Alumno { get; set; }
+        public AlumnoDTO Alumno { get; set; }
 
-        public virtual CursoDTO Curso { get; set; }
+        public CursoDTO Curso { get; set; }
     }
 }

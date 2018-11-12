@@ -4,7 +4,7 @@ namespace UniversityApp.DB
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("Asignatura")]
+    [Table("Asignaturas")]
     public class Asignatura
     {
         public Asignatura()

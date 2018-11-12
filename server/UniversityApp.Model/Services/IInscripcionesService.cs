@@ -8,6 +8,6 @@ namespace UniversityApp.Model.Services
         IEnumerable<Inscripcion> ObtenerInscripciones(FiltroInscripciones filtro);
         IEnumerable<Curso> CursosHabilitadosParaInscripcionPorAlumno(int id);
         IEnumerable<Alumno> ObtenerAlumnosInscriptosPorCurso(Curso curso);
-        void InscribirAlumno(Curso curso, Alumno alumno);
+        void InscribirAlumno(int asignaturaId, int cursoId, int alumnoId);
     }
 }

@@ -12,9 +12,7 @@ namespace UniversityApp.Api
             {
                 config.CreateMap<Alumno, AlumnoDTO>().ReverseMap();
                 config.CreateMap<Asignatura, AsignaturaDTO>().ReverseMap();
-                config.CreateMap<Curso, CursoDTO>()
-                    .ForMember(dto => dto.Asignatura, opt => opt.Ignore())
-                    .ReverseMap();
+                config.CreateMap<Curso, CursoDTO>().ReverseMap();
             });
         }
     }

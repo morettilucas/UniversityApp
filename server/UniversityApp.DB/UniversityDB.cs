@@ -35,7 +35,7 @@ namespace UniversityApp.DB
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Inscripcion>()
-                .HasKey(i => new {i.IDCurso, i.IDAlumno})
+                .HasKey(i => new {i.IDCurso, i.IDAlumno, i.IDAsignatura, i.FechaInscripcion})
                 .Property(e => e.Estado)
                 .HasColumnType("int");
 
