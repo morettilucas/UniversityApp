@@ -1,7 +1,11 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>Alumnos
-      </mat-card-title>
+    <mat-card-title>Alumnos</mat-card-title>
+    <button mat-icon-button (click)="agregarAlumno()">
+      <mat-icon>
+        add
+      </mat-icon>
+    </button>
   </mat-card-header>
 
   <mat-card-content>
@@ -15,6 +19,43 @@
       <ng-container matColumnDef="Legajo">
         <mat-header-cell *matHeaderCellDef> Legajo </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.Legajo}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Edad">
+        <mat-header-cell *matHeaderCellDef> Edad </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.Edad == 0 ? '-': element.Edad}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="FechaNacimiento">
+        <mat-header-cell *matHeaderCellDef> Fecha de Nacimiento </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.FechaNacimiento | date: 'dd/mm/yyyy'}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="ver">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="ver(element)">
+            <mat-icon>visibility</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="editar">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="editar(element)">
+            <mat-icon>create</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="eliminar">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="eliminar(element)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

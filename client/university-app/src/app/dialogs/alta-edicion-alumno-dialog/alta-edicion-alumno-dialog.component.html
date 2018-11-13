@@ -1,0 +1,27 @@
+<h1 *ngIf="!esEdicion" mat-dialog-title>Nuevo alumno</h1>
+<h1 *ngIf="esEdicion" mat-dialog-title>Editar alumno</h1>
+<mat-dialog-content>
+  <form #form="ngForm" role="form">
+    <mat-form-field>
+      <input matInput placeholder="Nombre" [(ngModel)]="alumno.Nombre" name="nombre" required maxlength="100" type="text">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Legajo" [disabled]="esEdicion" [(ngModel)]="alumno.Legajo" name="legajo" required maxlength="100">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Edad" [(ngModel)]="alumno.Edad" name="edad" type="number">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Fecha de nacimiento" [(ngModel)]="alumno.FechaNacimiento" name="fecha">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="listo()"
+          [disabled]="form.invalid">
+    Listo
+  </button>
+  <button mat-button (click)="cancelar()">Cancelar</button>
+</mat-dialog-actions>

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http'; 
+import { FormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AngularMaterialModule} from './material/angular-material.module';
@@ -12,21 +13,27 @@ import { AdminAsignaturasComponent } from './admin-asignaturas/admin-asignaturas
 
 import { AlumnosService } from './services/alumnos.service';
 import { AsignaturasService } from './services/asignaturas.service';
+import { AltaEdicionAlumnoDialogComponent } from './dialogs/alta-edicion-alumno-dialog/alta-edicion-alumno-dialog.component';
+import { AlumnoComponent } from './admin-alumnos/alumno/alumno.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminAlumnosComponent,
-    AdminAsignaturasComponent
+    AdminAsignaturasComponent,
+    AltaEdicionAlumnoDialogComponent,
+    AlumnoComponent
   ],
   imports: [
     BrowserModule,
     AngularMaterialModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [AlumnosService, AsignaturasService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AltaEdicionAlumnoDialogComponent]
 })
 export class AppModule { }

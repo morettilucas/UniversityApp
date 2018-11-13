@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-import { Observable } from 'rxjs'
+import { Observable } from 'rxjs';
 
 import { Alumno } from '../model/alumno';
 
@@ -18,5 +18,29 @@ export class AlumnosService {
     const url = `${environment.apiUrl}/alumnos`;
 
     return this.http.get<Alumno[]>(url);
+  }
+
+  getAlumno(id: number): Observable<Alumno> {
+    const url = `${environment.apiUrl}/alumnos/${id}`;
+
+    return this.http.get<Alumno>(url);
+  }
+
+  nuevoAlumno(alumno: Alumno): Observable<any> {
+    const url = `${environment.apiUrl}/alumnos`;
+
+    return this.http.post<Alumno>(url, alumno);
+  }
+
+  actualizarAlumno(alumno: Alumno): Observable<any> {
+    const url = `${environment.apiUrl}/alumnos/${alumno.IDAlumno}`;
+
+    return this.http.put<Alumno>(url, alumno);
+  }
+
+  eliminarAlumno(alumno: Alumno): Observable<any> {
+    const url = `${environment.apiUrl}/alumnos/${alumno.IDAlumno}`;
+
+    return this.http.delete(url);
   }
 }
