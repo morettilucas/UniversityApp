@@ -3,7 +3,7 @@ namespace UniversityApp.DB.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class Init : DbMigration
     {
         public override void Up()
         {
@@ -20,19 +20,20 @@ namespace UniversityApp.DB.Migrations
                 .PrimaryKey(t => t.IDAlumno);
             
             CreateTable(
-                "dbo.Inscripcions",
+                "dbo.Inscripciones",
                 c => new
                     {
-                        IDAlumno = c.Int(nullable: false),
                         IDCurso = c.Int(nullable: false),
+                        IDAlumno = c.Int(nullable: false),
+                        IDAsignatura = c.Int(nullable: false),
                         FechaInscripcion = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
-                        Estado = c.String(nullable: false, maxLength: 50),
+                        Estado = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.IDAlumno, t.IDCurso })
-                .ForeignKey("dbo.Cursos", t => t.IDCurso)
-                .ForeignKey("dbo.Alumnos", t => t.IDAlumno)
-                .Index(t => t.IDAlumno)
-                .Index(t => t.IDCurso);
+                .PrimaryKey(t => new { t.IDCurso, t.IDAlumno, t.IDAsignatura, t.FechaInscripcion })
+                .ForeignKey("dbo.Cursos", t => new { t.IDCurso, t.IDAsignatura })
+                .ForeignKey("dbo.Alumnos", t => t.IDAlumno, cascadeDelete: true)
+                .Index(t => new { t.IDCurso, t.IDAsignatura })
+                .Index(t => t.IDAlumno);
             
             CreateTable(
                 "dbo.Cursos",
@@ -43,12 +44,12 @@ namespace UniversityApp.DB.Migrations
                         CupoMaximo = c.Int(),
                         Docente = c.String(maxLength: 100),
                     })
-                .PrimaryKey(t => t.IDCurso)
-                .ForeignKey("dbo.Asignatura", t => t.IDAsignatura)
+                .PrimaryKey(t => new { t.IDCurso, t.IDAsignatura })
+                .ForeignKey("dbo.Asignaturas", t => t.IDAsignatura, cascadeDelete: true)
                 .Index(t => t.IDAsignatura);
             
             CreateTable(
-                "dbo.Asignatura",
+                "dbo.Asignaturas",
                 c => new
                     {
                         IDAsignatura = c.Int(nullable: false, identity: true),
@@ -60,15 +61,15 @@ namespace UniversityApp.DB.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.Inscripcions", "IDAlumno", "dbo.Alumnos");
-            DropForeignKey("dbo.Inscripcions", "IDCurso", "dbo.Cursos");
-            DropForeignKey("dbo.Cursos", "IDAsignatura", "dbo.Asignatura");
+            DropForeignKey("dbo.Inscripciones", "IDAlumno", "dbo.Alumnos");
+            DropForeignKey("dbo.Inscripciones", new[] { "IDCurso", "IDAsignatura" }, "dbo.Cursos");
+            DropForeignKey("dbo.Cursos", "IDAsignatura", "dbo.Asignaturas");
             DropIndex("dbo.Cursos", new[] { "IDAsignatura" });
-            DropIndex("dbo.Inscripcions", new[] { "IDCurso" });
-            DropIndex("dbo.Inscripcions", new[] { "IDAlumno" });
-            DropTable("dbo.Asignatura");
+            DropIndex("dbo.Inscripciones", new[] { "IDAlumno" });
+            DropIndex("dbo.Inscripciones", new[] { "IDCurso", "IDAsignatura" });
+            DropTable("dbo.Asignaturas");
             DropTable("dbo.Cursos");
-            DropTable("dbo.Inscripcions");
+            DropTable("dbo.Inscripciones");
             DropTable("dbo.Alumnos");
         }
     }

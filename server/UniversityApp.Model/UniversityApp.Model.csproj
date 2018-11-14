@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CicloLectivo.cs" />
+    <Compile Include="EstadoAcademico.cs" />
     <Compile Include="FiltroInscripciones.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

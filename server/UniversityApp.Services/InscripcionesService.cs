@@ -10,10 +10,12 @@ namespace UniversityApp.Services
     public class InscripcionesService : IInscripcionesService
     {
         public IUnitOfWork Context { get; set; }
+        public IAsignaturasService AsignaturasService { get; set; }
 
-        public InscripcionesService(IUnitOfWork context)
+        public InscripcionesService(IUnitOfWork context, IAsignaturasService asignaturasService)
         {
             Context = context ?? throw new ArgumentNullException(nameof(context));
+            AsignaturasService = asignaturasService ?? throw new ArgumentNullException(nameof(asignaturasService));
         }
 
         public IEnumerable<Inscripcion> ObtenerInscripciones(FiltroInscripciones filtro)
@@ -21,14 +23,20 @@ namespace UniversityApp.Services
             return Context.InscripcionesRepository.ObtenerInscripcionesPorFiltro(filtro);
         }
 
-        public IEnumerable<Curso> CursosHabilitadosParaInscripcionPorAlumno(int id)
+        public IEnumerable<Curso> ObtenerCursosHabilitadosParaInscripcionPorAlumno(int id, CicloLectivo cicloLectivo)
         {
-            throw new NotImplementedException();
-        }
+            var cursosLibres = AsignaturasService.ObtenerCursosLibres(cicloLectivo);
+            var filtro = new FiltroInscripciones
+            {
+                IdAlumno = id,
+                FechaDesde = cicloLectivo.FechaDesde,
+                FechaHasta = cicloLectivo.FechaHasta
+            };
+            var cursosDelAlumnoCicloLectivo = ObtenerInscripciones(filtro)
+                .Where(i => i.Estado == (int) EstadoInscripcion.Inscripto)
+                .Select(i => i.Curso);
 
-        public IEnumerable<Alumno> ObtenerAlumnosInscriptosPorCurso(Curso curso)
-        {
-            throw new NotImplementedException();
+            return cursosLibres.Where(cl => cursosDelAlumnoCicloLectivo.All(c => c.IDAsignatura != cl.IDAsignatura));
         }
 
         public void InscribirAlumno(int asignaturaId, int cursoId, int alumnoId)

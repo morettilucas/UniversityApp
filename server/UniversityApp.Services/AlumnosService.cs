@@ -8,7 +8,7 @@ using UniversityApp.Model.Services;
 
 namespace UniversityApp.Services
 {
-    public class AlumnosService: IAlumnosService
+    public class AlumnosService : IAlumnosService
     {
         public IUnitOfWork Context { get; set; }
 
@@ -24,16 +24,9 @@ namespace UniversityApp.Services
 
         public Alumno ObtenerAlumno(int id)
         {
-            try
-            {
-                return Context.AlumnosRepository.ObtenerAlumno(id);
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return null;
-            }
+            var alumno = Context.AlumnosRepository.ObtenerAlumno(id);
+            if (alumno == null) throw new Exception($"El alumno {id} no existe");
+            return alumno;
         }
 
         public int CrearAlumno(Alumno alumno)
@@ -53,16 +46,6 @@ namespace UniversityApp.Services
         {
             Context.AlumnosRepository.EliminarAlumno(id);
             Context.Commit();
-        }
-
-        public IEnumerable<Inscripcion> InscripcionesPorAlumno(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<Curso> CursosHabilitadosParaInscripcionPorAlumno(int id)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

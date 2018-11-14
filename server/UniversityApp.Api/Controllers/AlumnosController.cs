@@ -9,6 +9,7 @@ using UniversityApp.Model.Services;
 
 namespace UniversityApp.Api.Controllers
 {
+    [RoutePrefix("api/alumnos")]
     public class AlumnosController : BaseController
     {
         public IAlumnosService AlumnosService { get; set; }
@@ -37,8 +38,8 @@ namespace UniversityApp.Api.Controllers
             return Task.Factory.StartNew(() => AlumnosService.CrearAlumno(alumno));
         }
 
-        // PUT api/alumnos/5
-        public Task Put(int id, [FromBody]AlumnoDTO alumnoDto)
+        // PUT api/alumnos
+        public Task Put([FromBody]AlumnoDTO alumnoDto)
         {
             var alumno = Mapper.Map<Alumno>(alumnoDto);
             return Task.Factory.StartNew(() => AlumnosService.ActualizarAlumno(alumno));

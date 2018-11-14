@@ -22,8 +22,7 @@ namespace UniversityApp.Repositories
 
         public Alumno ObtenerAlumno(int id)
         {
-            var alumno = Context.Alumnos.Find(id);
-            return alumno ?? throw new Exception($"El alumno {id} no existe.");
+            return Context.Alumnos.Find(id);
         }
 
         public int CrearAlumno(Alumno alumno)

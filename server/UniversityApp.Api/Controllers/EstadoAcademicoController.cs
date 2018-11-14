@@ -1,15 +1,28 @@
 ﻿using System;
-using UniversityApp.Model.Repositories;
+using System.Threading.Tasks;
+using System.Web.Http;
+using AutoMapper;
+using UniversityApp.Api.Models;
+using UniversityApp.Model;
+using UniversityApp.Model.Services;
 
 namespace UniversityApp.Api.Controllers
 {
+    [RoutePrefix("api/estadoAcademico")]
     public class EstadoAcademicoController : BaseController
     {
-        public IAlumnosRepository AlumnosRepository { get; set; }
+        public IEstadoAcademicoService EstadoAcademicoService { get; set; }
 
-        public EstadoAcademicoController(IAlumnosRepository alumnosRepository)
+        public EstadoAcademicoController(IEstadoAcademicoService estadoAcademicoService)
         {
-            AlumnosRepository = alumnosRepository ?? throw new ArgumentNullException(nameof(alumnosRepository));
+            EstadoAcademicoService =
+                estadoAcademicoService ?? throw new ArgumentNullException(nameof(estadoAcademicoService));
+        }
+
+        // GET api/estadoAcademico?idAlumno=1
+        public Task<EstadoAcademicoDTO> Get([FromUri] int idAlumno)
+        {
+            return Task.Factory.StartNew(() => Mapper.Map<EstadoAcademico, EstadoAcademicoDTO>(EstadoAcademicoService.ObtenerEstadoAcademicoPorAlumno(idAlumno)));
         }
     }
 }

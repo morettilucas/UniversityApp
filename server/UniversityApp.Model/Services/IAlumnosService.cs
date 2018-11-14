@@ -10,8 +10,5 @@ namespace UniversityApp.Model.Services
         int CrearAlumno(Alumno alumno);
         void ActualizarAlumno(Alumno alumno);
         void EliminarAlumno(int id);
-
-        IEnumerable<Inscripcion> InscripcionesPorAlumno(int id);
-        IEnumerable<Curso> CursosHabilitadosParaInscripcionPorAlumno(int id);
     }
 }

@@ -26,7 +26,7 @@ namespace UniversityApp.DB
 
         [StringLength(100)] public string Docente { get; set; }
 
-        public Asignatura Asignatura { get; set; }
+        public virtual Asignatura Asignatura { get; set; }
 
         public virtual ICollection<Inscripcion> Inscripciones { get; set; }
     }

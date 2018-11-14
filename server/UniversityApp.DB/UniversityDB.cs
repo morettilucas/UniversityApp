@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 
 namespace UniversityApp.DB
 {
     using System.Data.Entity;
-
+    
     public partial class UniversityDB : DbContext
     {
         public UniversityDB()
@@ -21,7 +22,11 @@ namespace UniversityApp.DB
             modelBuilder.Entity<Alumno>()
                 .HasMany(e => e.Inscripciones)
                 .WithRequired(e => e.Alumno)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Asignatura>()
+                .HasMany(c => c.Cursos);
+//                .WithRequired(a => a.Asignatura); todo
 
             modelBuilder.Entity<Curso>()
                 .HasMany(e => e.Inscripciones)
@@ -32,15 +37,14 @@ namespace UniversityApp.DB
                 .HasRequired(c => c.Asignatura)
                 .WithMany(a => a.Cursos)
                 .HasForeignKey(c => c.IDAsignatura)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Inscripcion>()
                 .HasKey(i => new {i.IDCurso, i.IDAlumno, i.IDAsignatura, i.FechaInscripcion})
                 .Property(e => e.Estado)
                 .HasColumnType("int");
 
-            modelBuilder.Entity<Asignatura>()
-                .HasMany(c => c.Cursos);
+            
         }
     }
 }

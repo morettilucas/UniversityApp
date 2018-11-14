@@ -44,8 +44,8 @@ namespace UniversityApp.Api
 
             container.RegisterType<IAlumnosService, AlumnosService>();
             container.RegisterType<IAsignaturasService, AsignaturasService>();
-            container.RegisterType<IEstadoAcademicoService, EstadoAcademicoService>();
             container.RegisterType<IInscripcionesService, InscripcionesService>();
+            container.RegisterType<IEstadoAcademicoService, EstadoAcademicoService>();
         }
     }
 }
