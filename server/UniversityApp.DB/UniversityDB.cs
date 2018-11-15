@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace UniversityApp.DB
 {
     using System.Data.Entity;
@@ -26,7 +23,6 @@ namespace UniversityApp.DB
 
             modelBuilder.Entity<Asignatura>()
                 .HasMany(c => c.Cursos);
-//                .WithRequired(a => a.Asignatura); todo
 
             modelBuilder.Entity<Curso>()
                 .HasMany(e => e.Inscripciones)
