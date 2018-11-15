@@ -1,12 +1,42 @@
 <mat-card *ngIf="alumno">
+
   <mat-card-header>
-    <mat-card-title>{{alumno.Nombre}}</mat-card-title>
+    <mat-card-title>Estado academico de {{alumno.Nombre}}</mat-card-title>
     <mat-card-subtitle>Legajo {{alumno.Legajo}}</mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content>
-    <p>Inscripciones</p>
-    <button mat-icon-button (click)="verAsignaturas()">
-      <mat-icon>plus</mat-icon>
-    </button>
+
+  <mat-card-content *ngIf="estadoAcademico">
+
+    <mat-list>
+
+      <h3 mat-subheader>Asignaturas por cursar</h3>
+      <p *ngIf="estadoAcademico.AsignaturasPorCursar.length == 0">No tiene asignaturas para inscribirse</p>
+      <mat-list-item *ngFor="let asignatura of estadoAcademico.AsignaturasPorCursar">
+        <h4 mat-line>{{asignatura.Nombre}}</h4>
+        <button mat-icon-button (click)="solicitarInscripcion(asignatura)">
+          <mat-icon>input</mat-icon>
+        </button>
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+      <h3 mat-subheader>Asignaturas en curso</h3>
+      <p *ngIf="estadoAcademico.AsignaturasInscripto.length == 0">No tiene asignaturas para cursar</p>
+      <mat-list-item *ngFor="let asignatura of estadoAcademico.AsignaturasInscripto">
+        <h4 mat-line>{{asignatura.Nombre}}</h4>
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+
+      <h3 mat-subheader>Asignaturas no regular</h3>
+      <p *ngIf="estadoAcademico.AsignaturasNoRegular.length == 0">No tiene asignaturas como no regular</p>
+      <mat-list-item *ngFor="let asignatura of estadoAcademico.AsignaturasNoRegular">
+        <h4 mat-line>{{asignatura.Nombre}}</h4>
+        <button mat-icon-button (click)="solicitarInscripcion(asignatura)">
+          <mat-icon>input</mat-icon>
+        </button>
+      </mat-list-item>
+
+    </mat-list>
+
   </mat-card-content>
 </mat-card>

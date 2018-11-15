@@ -10,7 +10,9 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatListModule,
+  MatExpansionModule
 } from '@angular/material';
 
 const angularModules = [
@@ -24,6 +26,8 @@ const angularModules = [
   MatFormFieldModule,
   MatInputModule,
   MatDatepickerModule,
+  MatListModule,
+  MatExpansionModule,
   MatNativeDateModule
 ];
 

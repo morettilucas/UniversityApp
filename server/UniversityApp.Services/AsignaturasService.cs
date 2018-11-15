@@ -44,13 +44,14 @@ namespace UniversityApp.Services
             return cursos.Except(cursosOcupados);
         }
 
-        public IEnumerable<Alumno> ObtenerAlumnosPorAsignatura(Asignatura asignatura, CicloLectivo cicloLectivo)
+        public IEnumerable<Alumno> ObtenerAlumnosPorCurso(Curso curso, CicloLectivo cicloLectivo)
         {
             var filtro = new FiltroInscripciones
             {
                 FechaDesde = cicloLectivo.FechaDesde,
                 FechaHasta = cicloLectivo.FechaHasta,
-                IdAsignatura = asignatura.IDAsignatura
+                IdAsignatura = curso.IDAsignatura,
+                IdCurso = curso.IDCurso
             };
             return from inscripcion in Context.InscripcionesRepository.ObtenerInscripcionesPorFiltro(filtro)
                 group inscripcion by inscripcion.Alumno

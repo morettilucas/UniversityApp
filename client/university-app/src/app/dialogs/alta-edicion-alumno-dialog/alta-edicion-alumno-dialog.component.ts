@@ -19,7 +19,7 @@ export class AltaEdicionAlumnoDialogComponent implements OnInit {
 
   ngOnInit() {
     this.esEdicion = this.alumno != null;
-    if (this.alumno == null) this.alumno = new Alumno();
+    if (this.alumno == null) { this.alumno = new Alumno(); }
   }
 
   listo() {

@@ -1,10 +1,11 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span>University App</span>
-    <a mat-flat-button color="primary" routerLink="./alumnos">Alumnos</a>
-    <a mat-flat-button color="primary" routerLink="./asignaturas">Asignaturas</a>
+    <a mat-flat-button color="primary" routerLink="./" style="flex: 0 0 auto;">{{title}}</a>
+    <a mat-flat-button color="primary" routerLink="./alumnos" style="flex: 1 1 auto;">Alumnos</a>
+    <a mat-flat-button color="primary" routerLink="./asignaturas" style="flex: 1 1 auto;">Asignaturas</a>
+    <a mat-flat-button color="primary" routerLink="./" style="flex: 1 1 auto;">Ciclo lectivo {{cicloLectivo.FechaDesde | date: 'shortDate'}} a {{cicloLectivo.FechaHasta| date: 'shortDate' }}</a>
+
   </mat-toolbar-row>
 </mat-toolbar>
-
 
 <router-outlet></router-outlet>

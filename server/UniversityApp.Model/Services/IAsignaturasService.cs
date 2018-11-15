@@ -8,7 +8,7 @@ namespace UniversityApp.Model.Services
         IEnumerable<Asignatura> ObtenerAsignaturas();
         Asignatura ObtenerAsignaturaPorId(int id);
         IEnumerable<Curso> ObtenerCursosLibres(CicloLectivo cicloLectivo);
-        IEnumerable<Alumno> ObtenerAlumnosPorAsignatura(Asignatura asignatura, CicloLectivo cicloLectivo);
+        IEnumerable<Alumno> ObtenerAlumnosPorCurso(Curso curso, CicloLectivo cicloLectivo);
         IEnumerable<Alumno> ObtenerAlumnosRecursantesPorAsignatura(Asignatura asignatura);
     }
 }

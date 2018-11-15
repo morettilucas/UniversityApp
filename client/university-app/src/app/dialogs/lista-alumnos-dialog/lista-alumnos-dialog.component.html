@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Alumnos del curso</h1>
+
+<mat-dialog-content>
+
+  <mat-list>
+    <p *ngIf="alumnos.length == 0">No hay alumnos inscriptos al curso</p>
+    <mat-list-item *ngFor="let alumno of alumnos">
+      <p mat-line>{{alumno.Nombre}}</p>
+      <p mat-line>Legajo {{alumno.Legajo}}</p>
+      <button mat-icon-button (click)="ver(alumno)">
+        <mat-icon>visibility</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="listo()">Ok</button>
+</mat-dialog-actions>

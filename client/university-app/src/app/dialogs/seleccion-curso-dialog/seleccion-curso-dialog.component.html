@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Cursos disponibles</h1>
+<mat-dialog-content>
+  <mat-selection-list [(ngModel)]="selectedOptions" (ngModelChange)="onSelectionChange($event)">
+    <mat-list-option *ngFor="let curso of cursos" [value]="curso">
+      <h4 mat-line>Docente {{curso.Docente}}</h4>
+      <h4 mat-line>Cupo máximo {{curso.CupoMaximo}}</h4>
+    </mat-list-option>
+  </mat-selection-list>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="listo()">Listo</button>
+  <button mat-button mat-dialog-close="" >Cancelar</button>
+</mat-dialog-actions>

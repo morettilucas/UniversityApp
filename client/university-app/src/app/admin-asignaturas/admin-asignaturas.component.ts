@@ -1,11 +1,15 @@
-import { state, trigger, animate, style, transition} from '@angular/animations';
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import {state, trigger, animate, style, transition} from '@angular/animations';
+import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 
 import {Subscription} from 'rxjs';
 
-import {AsignaturasService} from '../services/asignaturas.service'
+import {AsignaturasService} from '../services/asignaturas.service';
 import {Asignatura} from '../model/asignatura';
-import { Curso } from '../model/curso';
+import {Curso} from '../model/curso';
+import {CicloLectivo} from '../model/cicloLectivo';
+import {MatDialog} from '@angular/material';
+import {SeleccionCursoDialogComponent} from '../dialogs/seleccion-curso-dialog/seleccion-curso-dialog.component';
+import {ListaAlumnosDialogComponent} from '../dialogs/lista-alumnos-dialog/lista-alumnos-dialog.component';
 
 @Component({
   selector: 'app-admin-asignaturas',
@@ -20,18 +24,19 @@ import { Curso } from '../model/curso';
 })
 export class AdminAsignaturasComponent implements OnInit, OnDestroy {
 
-  constructor(private asignaturasService: AsignaturasService) { }
+  constructor(private asignaturasService: AsignaturasService,
+              private dialog: MatDialog) {
+  }
 
   @Input('habilitarInscripcion') habilitarInscrpcion: boolean;
-  @Output('inscribir') inscribir = new EventEmitter<Curso>();
 
-  columnsToDisplay: string[] = ['Nombre'];
-  displayedColumnsCurso: string[] = ['Nombre'];
-  
   subscription = new Subscription();
   asignaturas: Asignatura[] = [];
 
+  cicloLectivoActual: CicloLectivo;
+
   ngOnInit() {
+    this.cicloLectivoActual = new CicloLectivo(new Date(2018, 1, 1), new Date(2018, 12, 31));
     this.subscription.add(
       this.asignaturasService.getAsignaturas().subscribe(asignaturas => {
         this.asignaturas = asignaturas;
@@ -39,8 +44,13 @@ export class AdminAsignaturasComponent implements OnInit, OnDestroy {
     );
   }
 
-  inscribirCurso(curso: Curso) {
-    this.inscribir.emit(curso);
+  verAlumnos(curso: Curso) {
+    this.asignaturasService.getAlumnos(curso, this.cicloLectivoActual).subscribe(alumnos => {
+      const dialogRef = this.dialog.open(ListaAlumnosDialogComponent);
+      dialogRef.componentInstance.alumnos = alumnos;
+
+      return dialogRef.afterClosed();
+    });
   }
 
   ngOnDestroy() {

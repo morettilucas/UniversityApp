@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import { FormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -15,6 +15,14 @@ import { AlumnosService } from './services/alumnos.service';
 import { AsignaturasService } from './services/asignaturas.service';
 import { AltaEdicionAlumnoDialogComponent } from './dialogs/alta-edicion-alumno-dialog/alta-edicion-alumno-dialog.component';
 import { AlumnoComponent } from './admin-alumnos/alumno/alumno.component';
+import { SeleccionCursoDialogComponent } from './dialogs/seleccion-curso-dialog/seleccion-curso-dialog.component';
+import { ListaAlumnosDialogComponent } from './dialogs/lista-alumnos-dialog/lista-alumnos-dialog.component';
+
+import { registerLocaleData } from '@angular/common';
+import localeEsAr from '@angular/common/locales/es-AR';
+import localeEsArExtra from '@angular/common/locales/extra/es-AR';
+
+registerLocaleData(localeEsAr, localeEsArExtra);
 
 @NgModule({
   declarations: [
@@ -22,7 +30,9 @@ import { AlumnoComponent } from './admin-alumnos/alumno/alumno.component';
     AdminAlumnosComponent,
     AdminAsignaturasComponent,
     AltaEdicionAlumnoDialogComponent,
-    AlumnoComponent
+    AlumnoComponent,
+    SeleccionCursoDialogComponent,
+    ListaAlumnosDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -32,8 +42,8 @@ import { AlumnoComponent } from './admin-alumnos/alumno/alumno.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [AlumnosService, AsignaturasService],
+  providers: [AlumnosService, AsignaturasService, { provide: LOCALE_ID, useValue: 'es-AR' }],
   bootstrap: [AppComponent],
-  entryComponents: [AltaEdicionAlumnoDialogComponent]
+  entryComponents: [AltaEdicionAlumnoDialogComponent, SeleccionCursoDialogComponent, ListaAlumnosDialogComponent]
 })
 export class AppModule { }

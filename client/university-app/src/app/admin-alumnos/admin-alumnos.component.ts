@@ -43,7 +43,7 @@ export class AdminAlumnosComponent implements OnInit, OnDestroy {
         }),
         tap(() => this.obtenerAlumnos()))
       .subscribe();
-  };
+  }
 
   ver(alumno: Alumno) {
     this.router.navigate([`/alumnos`, alumno.IDAlumno]);
@@ -72,7 +72,7 @@ export class AdminAlumnosComponent implements OnInit, OnDestroy {
   }
 
   obtenerAlumnos() {
-    if (this.subscription != null) this.subscription.unsubscribe();
+    if (this.subscription != null) { this.subscription.unsubscribe(); }
 
     this.subscription = this.alumnosService.getAlumnos().subscribe(alumnos => {
       this.alumnos = alumnos;
