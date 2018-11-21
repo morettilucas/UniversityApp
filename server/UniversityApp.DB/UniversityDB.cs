@@ -1,7 +1,7 @@
 namespace UniversityApp.DB
 {
     using System.Data.Entity;
-    
+
     public partial class UniversityDB : DbContext
     {
         public UniversityDB()

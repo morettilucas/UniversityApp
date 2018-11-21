@@ -6,7 +6,7 @@ namespace UniversityApp.DB
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("Alumnos")]
-    public class Alumno
+    public partial class Alumno
     {
         public Alumno()
         {
@@ -17,18 +17,22 @@ namespace UniversityApp.DB
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IDAlumno { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        public string Nombre { get; set; }
+        [Required] [StringLength(100)] public string Nombre { get; set; }
 
-        [Required]
-        [StringLength(20)]
-        public string Legajo { get; set; }
+        [Required] [StringLength(20)] public string Legajo { get; set; }
 
-        public int? Edad { get; set; }
+        public int? Edad
+        {
+            get
+            {
+                if (FechaNacimiento == null) return null;
+                var age = DateTime.Now.Year - FechaNacimiento.Value.Year;
+                if (FechaNacimiento > DateTime.Now.AddYears(-age)) age--;
+                return age;
+            }
+        }
 
-        [Column(TypeName = "datetime2")]
-        public DateTime? FechaNacimiento { get; set; }
+        [Column(TypeName = "datetime2")] public DateTime? FechaNacimiento { get; set; }
 
         public virtual ICollection<Inscripcion> Inscripciones { get; set; }
     }

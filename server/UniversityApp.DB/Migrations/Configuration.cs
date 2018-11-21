@@ -9,8 +9,7 @@ namespace UniversityApp.DB.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
-            ContextKey = "UniversityApp.DB.UniversityDB";
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(UniversityApp.DB.UniversityDB context)
